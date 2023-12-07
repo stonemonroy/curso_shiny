@@ -97,6 +97,17 @@ dashboardPage(
               width = 6,
               plotOutput("plot_barras")
             ) 
+          ),
+          
+          br(),
+          br(),
+          
+          fluidRow(
+            column(
+              width = 8,
+              offset = 2,
+              uiOutput("table")
+            )
           )
           
         ) # Cierra div contenido
@@ -104,11 +115,39 @@ dashboardPage(
       ), # Cierra tabItem menu1
       
       tabItem(
-        tabName = "menu2"
+        tabName = "menu2",
+        
+        fluidRow(
+          align = "center",
+          div(style="display: inline-block; margin-right: 30px; margin-top: 4%;", img(src="https://yt3.googleusercontent.com/ytc/APkrFKbWwqXAmcNzty35LqQnSyJB6zfHIJ5O0ldSX5by1A=s176-c-k-c0x00ffffff-no-rj", height=104, width=104)),
+          div(style="display: inline-block; vertical-align: middle;", h1("Pestaña", span("2", style = "font-weight: 300"),
+                                                                         style = "font-family: 'Source Sans Pro';
+                                                                                    color: #fff; text-align: center;
+                                                                                    background-image: url('https://th.bing.com/th/id/R.b57082aa4dc524591c97aca2e1122436?rik=2MfUP96X0CXMzw&pid=ImgRaw&r=0.jpeg');
+                                                                                    padding: 20px")
+          )
+        )
+        
+        # Contenido del tab 2
+        
       ), # Cierra tabItem menu2
       
       tabItem(
-        tabName = "menu3"
+        tabName = "menu3",
+        
+        fluidRow(
+          align = "center",
+          div(style="display: inline-block; margin-right: 30px; margin-top: 4%;", img(src="https://yt3.googleusercontent.com/ytc/APkrFKbWwqXAmcNzty35LqQnSyJB6zfHIJ5O0ldSX5by1A=s176-c-k-c0x00ffffff-no-rj", height=104, width=104)),
+          div(style="display: inline-block; vertical-align: middle;", h1("Pestaña", span("3", style = "font-weight: 300"),
+                                                                         style = "font-family: 'Source Sans Pro';
+                                                                                    color: #fff; text-align: center;
+                                                                                    background-image: url('https://th.bing.com/th/id/R.b57082aa4dc524591c97aca2e1122436?rik=2MfUP96X0CXMzw&pid=ImgRaw&r=0.jpeg');
+                                                                                    padding: 20px")
+          )
+        )
+        
+        # Contenido del tab 3
+        
       ) # Cierra tabItem menu3
       
     ) # Cierra tabItems
