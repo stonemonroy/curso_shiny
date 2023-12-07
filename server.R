@@ -47,5 +47,20 @@ server <- function(input, output, session) {
   })
   
   
+  output$table <- renderUI({
+    
+    htmltools_value(
+      datos %>% 
+        group_by(sexo_biologico) %>% 
+        summarise(Edad = mean(edad_anos_cumplidos),
+                  `Estatura (cm)` = mean(estatura_cm),
+                  `Peso (kg)` = mean(peso_o_masa_corporal_kg)) %>% 
+        pivot_longer(cols = c(2:4), names_to = "Promedio características") %>% 
+        pivot_wider(names_from = sexo_biologico, values_from = value) %>% 
+        mutate(across(where(is.numeric), \(x) round(x, 1))) %>% 
+        ftable()
+    )
+    
+  })
   
 }
