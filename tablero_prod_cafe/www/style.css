@@ -11,21 +11,13 @@
   width:100%;
 }
 
-.skin-blue .main-header .navbar {
-  background-color: orange;
-}
-
-.skin-blue .main-header .logo {
-  background-color: orange;
-}
-
 .irs--shiny .irs-single {
-  background-color: orange;
+  background-color: green;
 }
 
 .irs--shiny .irs-bar {
-  background: orange;
-  border-color: orange;
+  background: green;
+  border-color: green;
 }
 
 .contenido {
@@ -37,9 +29,4 @@
   margin-top: 3%;
   z-index: 9999;
   width: 100%;
-}
-
-#animado {
-  width: 100%;
-  text-align: center;
 }

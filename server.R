@@ -5,20 +5,14 @@ server <- function(input, output, session) {
       count(sexo_biologico) %>% 
       mutate(porcentaje = n/sum(n), ymax = cumsum(porcentaje),
              ymin = c(0,head(ymax, n = -1)), labelpos = (ymax + ymin)/2,
-             labelname = paste(sexo_biologico,"\n",n,"\n",paste(round(porcentaje*100,digits = 1),"%"))) %>% 
-      ggplot(aes(ymax = ymax, ymin = ymin, xmax=10 , xmin=1,fill = sexo_biologico ))+
+             labelname = paste(sexo_biologico,"\n",n,"\n",percent(porcentaje, 0.1))) %>% 
+      ggplot(aes(ymax = ymax, ymin = ymin, xmax=10, xmin=1, fill = sexo_biologico ))+
       geom_rect()+
-      # Si queremos imprimir las etiquetas SIN recuadro, dejamos la línea siguiente
       geom_text(aes(x = -3.2,y = labelpos, label = labelname),size = 4, color = "black", fontface = "bold")+
-      # Si queremos imprimir las etiquetas CON recuadro, dejamos la línea siguiente
-      #geom_label(x = 1,aes(y = labelpos, label = labelname),size = 4)+
-      # Para usar otra paleta de colores.
-      #scale_fill_brewer(palette = 4)+
       scale_fill_manual(values = c("#4292c6",
-                                   "#41b6c4","#7fcdbb","#238b45",#"#41ab5d",
+                                   "#41b6c4","#7fcdbb","#238b45",
                                    "#78c679","#c7e9b4","#edf8b1","#fee391","#fec44f",
                                    "#fe9929","#ec7014")) +
-      #scale_color_brewer(palette = 4)+
       coord_polar(theta = "y")+
       xlim(c(20,-10))+
       theme_void()+
@@ -62,5 +56,34 @@ server <- function(input, output, session) {
     )
     
   })
+  
+  
+  output$animado <- renderImage({
+    df <- cafe %>%
+      filter(departamento %in% c("CALDAS", "QUINDIO", "RISARALDA")) %>%
+      mutate(ano = as.numeric(ano)) %>% 
+      ggplot(aes(x = ano, y = produccion_ton, color = departamento))+
+      geom_line(aes(group = departamento), linewidth = 1.5)+
+      geom_point(size = 4)+
+      labs(x = "Año", y = "Producción (ton)",
+           title = "Producción de café en el {as.integer(frame_along)} (ton)",
+           col = "Departamento")+
+      #title = "Porcentaje de administrativos de acuerdo con el nivel")+
+      theme(legend.position="bottom")+
+      theme(axis.text.y = element_text(size = 10))+
+      theme(axis.text.x = element_text(size = 10))+
+      scale_color_manual(values = c("#3288bd","#41b6c4","#238b45",
+                                    "#7fcdbb","#238b45",#"#41ab5d",
+                                    "#78c679","#c7e9b4","#edf8b1","#fee391","#fec44f",
+                                    "#fe9929","#ec7014"))+
+      transition_reveal(ano)
+    
+    
+    anim_save("outfile.gif", animate(df, width = 700, height = 400, nframes = 45))
+    
+    # Return a list containing the filename
+    list(src = "outfile.gif", contentType = "image/gif")
+  }, deleteFile = TRUE)
+  
   
 }

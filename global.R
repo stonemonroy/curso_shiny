@@ -1,11 +1,13 @@
 library(shiny)
 library(shinyWidgets)
 library(shinydashboard)
-library(tidyverse)
 library(openxlsx)
 library(janitor)
+library(tidyverse)
 library(scales)
 library(flextable)
+library(gganimate)
+library(gifski)
 
 
 # Función para crear flextable
@@ -53,4 +55,11 @@ datos <- datos %>%
                                                             "Veinteañero",
                                                             "Treintañero",
                                                             "40 o más años")))
+
+
+
+
+# Lectura datos agronet
+cafe <- read.xlsx("tablero_prod_cafe/datos_cafe.xlsx") %>% 
+  clean_names()
 

@@ -108,6 +108,17 @@ dashboardPage(
               offset = 2,
               uiOutput("table")
             )
+          ),
+          
+          br(),
+          br(),
+          
+          fluidRow(
+            column(
+              width = 8,
+              offset = 2,
+              imageOutput("animado")
+            )
           )
           
         ) # Cierra div contenido
